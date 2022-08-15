@@ -6,5 +6,5 @@ templateUrl: './footer.component.html',
 styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
-  public autor: any = {nombre:'Fabian', apellido: 'Tapia'};
+  public autor: any = {nombre: 'Fabian', apellido: 'Tapia'};
 }

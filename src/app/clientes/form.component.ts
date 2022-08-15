@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Cliente } from './cliente';
-import { Region } from './region';
-import { ClienteService } from './cliente.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Cliente} from './cliente';
+import {Region} from './region';
+import {ClienteService} from './cliente.service';
+import {Router, ActivatedRoute} from '@angular/router';
 import swal from 'sweetalert2';
 
 @Component({
@@ -13,13 +13,14 @@ export class FormComponent implements OnInit {
 
   private cliente: Cliente = new Cliente();
   regiones: Region[];
-  titulo: string = "Crear Cliente";
+  titulo: string = 'Crear Cliente';
 
   errores: string[];
 
   constructor(private clienteService: ClienteService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -61,7 +62,7 @@ export class FormComponent implements OnInit {
           console.error('Código del error desde el backend: ' + err.status);
           console.error(err.error.errors);
         }
-      )
+      );
   }
 
   compararRegion(o1: Region, o2: Region): boolean {

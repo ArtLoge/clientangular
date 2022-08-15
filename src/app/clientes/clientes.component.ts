@@ -19,7 +19,7 @@ export class ClientesComponent implements OnInit {
 
   constructor(private clienteService: ClienteService,
     private modalService: ModalService,
-    private authService: AuthService,
+    public authService: AuthService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -45,12 +45,12 @@ export class ClientesComponent implements OnInit {
 
     this.modalService.notificarUpload.subscribe(cliente => {
       this.clientes = this.clientes.map(clienteOriginal => {
-        if (cliente.id == clienteOriginal.id) {
+        if (cliente.id === clienteOriginal.id) {
           clienteOriginal.foto = cliente.foto;
         }
         return clienteOriginal;
-      })
-    })
+      });
+    });
   }
 
   delete(cliente: Cliente): void {
@@ -77,9 +77,9 @@ export class ClientesComponent implements OnInit {
               'Cliente Eliminado!',
               `Cliente ${cliente.nombre} eliminado con éxito.`,
               'success'
-            )
+            );
           }
-        )
+        );
 
       }
     });

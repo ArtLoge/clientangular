@@ -4,12 +4,11 @@ import { Region } from './region';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-
 import { Router } from '@angular/router';
 
 @Injectable()
 export class ClienteService {
-  private urlEndPoint: string = 'http://localhost:8080/api/clientes';
+  private urlEndPoint = 'http://localhost:8080/api/clientes';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -41,7 +40,7 @@ export class ClienteService {
       .pipe(
         map((response: any) => response.cliente as Cliente),
         catchError(e => {
-          if (e.status == 400) {
+          if (e.status === 400) {
             return throwError(e);
           }
           if (e.error.mensaje) {
@@ -54,11 +53,10 @@ export class ClienteService {
   getCliente(id): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
-        if (e.status != 401 && e.error.mensaje) {
+        if (e.status !== 401 && e.error.mensaje) {
           this.router.navigate(['/clientes']);
           console.error(e.error.mensaje);
         }
-
         return throwError(e);
       }));
   }
@@ -66,7 +64,7 @@ export class ClienteService {
   update(cliente: Cliente): Observable<any> {
     return this.http.put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente).pipe(
       catchError(e => {
-        if (e.status == 400) {
+        if (e.status === 400) {
           return throwError(e);
         }
         if (e.error.mensaje) {
@@ -87,14 +85,12 @@ export class ClienteService {
   }
 
   subirFoto(archivo: File, id): Observable<HttpEvent<{}>> {
-    let formData = new FormData();
-    formData.append("archivo", archivo);
-    formData.append("id", id);
-
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+    formData.append('id', id);
     const req = new HttpRequest('POST', `${this.urlEndPoint}/upload`, formData, {
       reportProgress: true
     });
-
     return this.http.request(req);
   }
 }

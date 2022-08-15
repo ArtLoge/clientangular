@@ -43,7 +43,7 @@ export class AuthService {
       'Authorization': 'Basic ' + credenciales
     });
 
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     params.set('grant_type', 'password');
     params.set('username', usuario.username);
     params.set('password', usuario.password);
@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   guardarUsuario(accessToken: string): void {
-    let payload = this.obtenerDatosToken(accessToken);
+    const payload = this.obtenerDatosToken(accessToken);
     this._usuario = new Usuario();
     this._usuario.nombre = payload.nombre;
     this._usuario.apellido = payload.apellido;
@@ -69,24 +69,18 @@ export class AuthService {
 
   obtenerDatosToken(accessToken: string): any {
     if (accessToken != null) {
-      return JSON.parse(atob(accessToken.split(".")[1]));
+      return JSON.parse(atob(accessToken.split('.')[1]));
     }
     return null;
   }
 
   isAuthenticated(): boolean {
-    let payload = this.obtenerDatosToken(this.token);
-    if (payload != null && payload.user_name && payload.user_name.length > 0) {
-      return true;
-    }
-    return false;
+    const payload = this.obtenerDatosToken(this.token);
+    return payload != null && payload.user_name && payload.user_name.length > 0;
   }
 
   hasRole(role: string): boolean {
-    if (this.usuario.roles.includes(role)) {
-      return true;
-    }
-    return false;
+    return this.usuario.roles.includes(role);
   }
 
   logout(): void {
